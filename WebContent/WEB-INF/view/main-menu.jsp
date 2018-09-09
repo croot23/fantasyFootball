@@ -19,7 +19,6 @@
 	
 				<thead>
 				<tr style="text-align: center">
-					<!-- <th>${tempTeam.teamName}</th> -->
 					<th>Team Name</th>
 					<th>Manager</th>
 					<th>Team Value</th>

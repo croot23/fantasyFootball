@@ -16,7 +16,7 @@
 			<table style="text-align: center; margin-left: 15px">
 				<thead>
 				<tr style="text-align: center">
-					<!-- <th>${tempTeam.teamName}</th> -->
+					<th>${tempTeam.teamName}</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -25,7 +25,6 @@
 						<tr style="width: 30px">
 							<td>GK</td>
 							<td>${tempPlayer.webName}</td>
-							<!--  <td>${tempPlayer.form}</td>-->
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -34,7 +33,6 @@
 						<tr style="width: 30px">
 							<td>DEF</td>
 							<td>${tempPlayer.webName}</td>
-							<!-- <td>${tempPlayer.form}</td>-->
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -43,7 +41,6 @@
 						<tr style="width: 30px">
 						<td>MID</td>
 							<td>${tempPlayer.webName}</td>
-							<!-- <td>${tempPlayer.form}</td>-->
 							</tr>
 						</c:if>
 				</c:forEach>
@@ -52,7 +49,6 @@
 						<tr style="width: 30px">
 						<td>FWD</td>
 							<td>${tempPlayer.webName}</td>
-							<!--  <td>${tempPlayer.form}</td>-->
 							</tr>
 						</c:if>
 				</c:forEach>

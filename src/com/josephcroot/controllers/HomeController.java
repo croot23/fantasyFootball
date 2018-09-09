@@ -43,13 +43,15 @@ public class HomeController {
 		theModel.addAttribute("teams", newLeague.getTeams());
 		return "main-menu";
 	}
+	
+	@RequestMapping("/all-teams")
+	public String allTeams(Model theModel) throws JSONException, IOException {
 
-	@RequestMapping("/form")
-	public String checkPlayer(Model theModel) throws JSONException, IOException {
-		System.out.println("here");
-		//playerService.updatePlayer(267);
-		return "form";
+		League newLeague = leagueService.getLeague(league);
+		theModel.addAttribute("teams", newLeague.getTeams());
+		return "all-teams";
 	}
+
 	@RequestMapping("/graph")
 	public String graph() {
 		return "graph";
@@ -83,8 +85,6 @@ public class HomeController {
 			json.put("y", team.getTotalPoints());
 			array.put(json);
 		}
-		//ObjectMapper mapper = new ObjectMapper();
-		//return mapper.writeValueAsString(array);
 		return array.toString();
 	}
 	

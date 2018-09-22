@@ -45,7 +45,7 @@
 				<td>${team.benchBoost==true ? "Yes" : ""}</td>
 				<td>${tTeam.tripleCaptain==true ? "Yes" : ""}</td>
 				<!--<td></td>-->
-				<td></td>
+				<td>${team.captain.webName} (${team.captain.gameweekPoints*2})</td>
 				<td>${team.gameweekPoints}</td>
 				<td>${team.totalPoints}</td>
 				</tr>

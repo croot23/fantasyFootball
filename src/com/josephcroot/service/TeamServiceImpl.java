@@ -73,7 +73,7 @@ public class TeamServiceImpl implements TeamService {
 			newTeam.setTeamValue(teamInfo.getDouble("value"));
 			newTeam.setBank(teamInfo.getDouble("bank"));
 			newTeam.setTotalTransfers(teamInfo.getInt("total_transfers"));
-			newTeam.setFreeHit(false);
+			newTeam.setGameweekPoints(teamInfo.getInt("summary_event_points"));
 			newTeam.setManagerName(
 					teamInfo.getString("player_first_name") + " " + teamInfo.getString("player_last_name"));
 			JSONArray chipInfo = GetJSONFromFantasyFootballAPI.getTeamChipsInfo(newTeam.getFantasyFootballId());
@@ -107,7 +107,7 @@ public class TeamServiceImpl implements TeamService {
 				JSONObject currentPlayer = playersJSON.getJSONObject(i);
 				Player player = playerService.getPlayer(currentPlayer.getInt("element"));
 				if (currentPlayer.getBoolean("is_captain")) {
-					newTeam.setCaptain(currentPlayer.getInt("element"));
+					newTeam.setCaptain(player);
 				}
 				players.add(player);
 			}

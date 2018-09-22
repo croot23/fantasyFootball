@@ -42,6 +42,7 @@ CREATE TABLE `team` (
   `team_value` int DEFAULT NULL,
   `bank` int DEFAULT NULL,
   `total_transfers` int DEFAULT NULL,
+  KEY `player_id` (`captain_id`),
   PRIMARY KEY (`fantasy_football_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
@@ -83,7 +84,7 @@ CREATE TABLE `league_team` (
   CONSTRAINT `FK_TEAM_2` FOREIGN KEY (`team_id`) 
   REFERENCES `Team` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
-) 
+)
 
 SET FOREIGN_KEY_CHECKS = 1;
 

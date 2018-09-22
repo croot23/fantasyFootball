@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -56,8 +57,9 @@ public class Team {
 	@Column(name="triple_captain")
 	private boolean tripleCaptain;
 	
-	@Column(name="captain")
-	private int captain;
+	@ManyToOne
+	@JoinColumn(name="captain_id")
+	private Player captain;
 	
 	@ManyToMany(fetch=FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, })
 	@JoinTable(name="team_player", joinColumns=@JoinColumn(name="team_id"), inverseJoinColumns=@JoinColumn(name="player_id"))
@@ -166,11 +168,11 @@ public class Team {
 		this.tripleCaptain = tripleCaptain;
 	}
 
-	public int getCaptain() {
+	public Player getCaptain() {
 		return captain;
 	}
 
-	public void setCaptain(int captain) {
+	public void setCaptain(Player captain) {
 		this.captain = captain;
 	}
 	

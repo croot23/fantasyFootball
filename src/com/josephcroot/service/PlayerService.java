@@ -13,5 +13,9 @@ public interface PlayerService {
 	public Player getPlayer(int playerId) throws JSONException, IOException;
 	
 	public void deletePlayer(int playerId);
+	
+	public void updatePlayerInfo() throws JSONException, IOException;
+	
+	public void scheduleFixedDelayTask() throws JSONException, IOException;
 
 }

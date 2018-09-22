@@ -1,5 +1,8 @@
 package com.josephcroot.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,18 @@ public class TeamDAOImpl implements TeamDAO {
 	public void addTeam(Team team) {
 		Session currentSession = session.getCurrentSession();
 		currentSession.saveOrUpdate(team);
+	}
+
+	@Override
+	public void updateTeam(Team team) {
+		Session currentSession = session.getCurrentSession();
+		currentSession.saveOrUpdate(team);
+	}
+
+	@Override
+	public List<Integer> getTeamIds() {
+		Session currentSession = session.getCurrentSession();
+		return (ArrayList<Integer>) currentSession.createQuery("SELECT T.fantasyFootballId FROM Team T").list();
 	}
 
 }

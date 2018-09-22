@@ -45,7 +45,7 @@ public class LeagueServiceImpl implements LeagueService {
 				e.printStackTrace();
 			}
 
-			Set<Team> teams = new HashSet<Team>();
+			Set<Team> teams = new HashSet<>();
 			try {
 				JSONArray teamsJSON = GetJSONFromFantasyFootballAPI.getTeams(leagueId);
 				for (int i = 0; i < teamsJSON.length(); i++) {

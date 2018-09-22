@@ -1,12 +1,15 @@
 package com.josephcroot.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.josephcroot.dao.PlayerDAO;
@@ -18,56 +21,60 @@ public class PlayerServiceImpl implements PlayerService {
 
 	@Autowired
 	private PlayerDAO playerDAO;
+	
+	@Transactional
+	@Scheduled(fixedDelay = 60000)
+	public void scheduleFixedDelayTask() throws JSONException, IOException {
+	    updatePlayerInfo();
+	}
+
+	@Transactional
+	@Override
+	public void updatePlayerInfo() throws JSONException, IOException {
+		List<Integer> result = new ArrayList<Integer>(playerDAO.getPlayerIds());
+		for (int playerId : result) {
+				Player updatedPlayer = playerDAO.getPlayer(playerId);
+				updatePlayer(updatedPlayer);
+				playerDAO.updatePlayer(updatedPlayer);
+		}
+	}
 
 	@Transactional
 	@Override
 	public Player getPlayer(int playerId) throws JSONException, IOException {
 
-		// If Player already exists in the database, get it from there
 		Player dbPlayer = playerDAO.getPlayer(playerId);
 		if (dbPlayer != null) {
 			return dbPlayer;
 		}
-		// If Player doesn't exist, get it from the fantasy football API
 		else {
-			// Get JSON for the Player
-			Player tmpPlayer = getPlayerFromAPI(playerId);
+			Player tmpPlayer = new Player();
+			tmpPlayer.setFantasyFootballId(playerId);
+			updatePlayer(tmpPlayer);
 			playerDAO.addplayer(tmpPlayer);
 			return tmpPlayer;
 		}
 	}
 
+	public void updatePlayer(Player player) throws JSONException, IOException {
+		JSONObject playerInfo = GetJSONFromFantasyFootballAPI.getPlayer(player.getFantasyFootballId());
+		player.setFirstName(playerInfo.getString("first_name"));
+		player.setLastName(playerInfo.getString("second_name"));
+		player.setForm(playerInfo.getDouble("form"));
+		player.setTotalPoints(playerInfo.getInt("total_points"));
+		player.setPrice(playerInfo.getDouble("now_cost")/10);
+		player.setGameweekPoints(playerInfo.getInt("event_points"));
+		player.setBonusPoints(playerInfo.getDouble("bonus"));
+		player.setPointsPerGame(playerInfo.getDouble("points_per_game"));
+		player.setPosition(playerInfo.getInt("element_type"));
+		player.setWebName(playerInfo.getString("web_name"));
+		player.setTeam(playerInfo.getInt("team"));
+	}
+	
 	@Override
 	@Transactional
 	public void deletePlayer(int playerId) {
 		playerDAO.deletePlayer(playerId);
-	}
-/*
-	@Override
-	@Transactional
-	public void updatePlayer(int playerId) throws JSONException, IOException  {
-		Player tmpPlayer = getPlayerFromAPI(playerId);
-		playerDAO.updatePlayer(tmpPlayer);
-	}*/
-	
-	public Player getPlayerFromAPI(int playerId) throws JSONException, IOException {
-		JSONObject player = GetJSONFromFantasyFootballAPI.getPlayer(playerId);
-		// Create Player
-		Player tmpPlayer = new Player();
-		// Set Player Details
-		tmpPlayer.setFantasyFootballId(playerId);
-		tmpPlayer.setFirstName(player.getString("first_name"));
-		tmpPlayer.setLastName(player.getString("second_name"));
-		tmpPlayer.setForm(player.getDouble("form"));
-		tmpPlayer.setTotalPoints(player.getInt("total_points"));
-		tmpPlayer.setPrice(player.getDouble("now_cost")/10);
-		tmpPlayer.setGameweekPoints(player.getInt("event_points"));
-		tmpPlayer.setBonusPoints(player.getDouble("bonus"));
-		tmpPlayer.setPointsPerGame(player.getDouble("points_per_game"));
-		tmpPlayer.setPosition(player.getInt("element_type"));
-		tmpPlayer.setWebName(player.getString("web_name"));
-		tmpPlayer.setTeam(player.getInt("team"));
-		return tmpPlayer;
 	}
 
 }

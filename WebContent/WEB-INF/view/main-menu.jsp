@@ -23,31 +23,31 @@
 					<th>Manager</th>
 					<th>Team Value</th>
 					<th>Transfers</th>
-					<th>Wildcard Used</th>
-					<th>Free Hit Used</th>
-					<th>Bench Boost</th>
-					<th>Triple Captain</th>
-					<th>Expected Points</th>
+					<th>Wildcard</th>
+					<th>FH</th>
+					<th>BB</th>
+					<th>TC</th>
+					<!--<th>Expected Points</th>-->
 					<th>Captain</th>
 					<th>Gameweek Points</th>
 					<th>Total Points</th>
 				</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="tempTeam" items="${teams}">
+				<c:forEach var="team" items="${teams}">
 				<tr>
-				<td>${tempTeam.teamName}</td>
-				<td>${tempTeam.managerName}</td>
-				<td>${(tempTeam.teamValue+tempTeam.bank)/10}</td>
-				<td>${tempTeam.totalTransfers}</td>
-				<td>${tempTeam.wildcard==true ? "Yes" : ""}</td>
-				<td>${tempTeam.freeHit==true ? "Yes" : ""}</td>
-				<td>${tempTeam.benchBoost==true ? "Yes" : ""}</td>
-				<td>${tempTeam.tripleCaptain==true ? "Yes" : ""}</td>
+				<td>${team.teamName}</td>
+				<td>${team.managerName}</td>
+				<td>${(team.teamValue+tempTeam.bank)/10}</td>
+				<td>${team.totalTransfers}</td>
+				<td>${team.wildcard==true ? "Yes" : ""}</td>
+				<td>${team.freeHit==true ? "Yes" : ""}</td>
+				<td>${team.benchBoost==true ? "Yes" : ""}</td>
+				<td>${tTeam.tripleCaptain==true ? "Yes" : ""}</td>
+				<!--<td></td>-->
 				<td></td>
-				<td></td>
-				<td>${tempTeam.gameweekPoints}</td>
-				<td>${tempTeam.totalPoints}</td>
+				<td>${team.gameweekPoints}</td>
+				<td>${team.totalPoints}</td>
 				</tr>
 				</c:forEach>
 				</tbody>
@@ -60,7 +60,7 @@
 <script>$(document).ready( function () {
     $('#table_id').DataTable( {
         paging: false,
-        "order": [[ 11, "desc" ]]
+        "order": [[ 10, "desc" ]]
     } );
 } );
 </script>

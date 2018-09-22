@@ -11,49 +11,49 @@
 <body>
 
 
-	<c:forEach var="tempTeam" items="${teams}">
+	<c:forEach var="team" items="${teams}">
 		<div style="float: left">
 			<table style="text-align: center; margin-left: 15px">
 				<thead>
-				<tr style="text-align: center">
-					<th>${tempTeam.teamName}</th>
-				</tr>
+					<tr style="text-align: center">
+						<th>${team.teamName}</th>
+					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="tempPlayer" items="${tempTeam.players}">
-					<c:if test="${tempPlayer.position == 1}">
-						<tr style="width: 30px">
-							<td>GK</td>
-							<td>${tempPlayer.webName}</td>
-						</tr>
-					</c:if>
-				</c:forEach>
-				<c:forEach var="tempPlayer" items="${tempTeam.players}">
-					<c:if test="${tempPlayer.position == 2}">
-						<tr style="width: 30px">
-							<td>DEF</td>
-							<td>${tempPlayer.webName}</td>
-						</tr>
-					</c:if>
-				</c:forEach>
-				<c:forEach var="tempPlayer" items="${tempTeam.players}">
-						<c:if test="${tempPlayer.position == 3}">
-						<tr style="width: 30px">
-						<td>MID</td>
-							<td>${tempPlayer.webName}</td>
+					<c:forEach var="player" items="${team.players}">
+						<c:if test="${player.position == 1}">
+							<tr style="width: 30px">
+								<td>GK</td>
+								<td>${player.webName}</td>
 							</tr>
 						</c:if>
-				</c:forEach>
-								<c:forEach var="tempPlayer" items="${tempTeam.players}">
-						<c:if test="${tempPlayer.position == 4}">
-						<tr style="width: 30px">
-						<td>FWD</td>
-							<td>${tempPlayer.webName}</td>
+					</c:forEach>
+					<c:forEach var="player" items="${team.players}">
+						<c:if test="${player.position == 2}">
+							<tr style="width: 30px">
+								<td>DEF</td>
+								<td>${player.webName}</td>
 							</tr>
 						</c:if>
-				</c:forEach>
-				<tr>
-				</tr>
+					</c:forEach>
+					<c:forEach var="player" items="${team.players}">
+						<c:if test="${player.position == 3}">
+							<tr style="width: 30px">
+								<td>MID</td>
+								<td>${player.webName}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+					<c:forEach var="player" items="${team.players}">
+						<c:if test="${player.position == 4}">
+							<tr style="width: 30px">
+								<td>FWD</td>
+								<td>${player.webName}</td>
+							</tr>
+						</c:if>
+					</c:forEach>
+					<tr>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -61,8 +61,9 @@
 
 
 </body>
-<script>$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
+<script>
+	$(document).ready(function() {
+		$('#table_id').DataTable();
+	});
 </script>
 </html>

@@ -1,5 +1,8 @@
 package com.josephcroot.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,18 @@ public class PlayerDAOImpl implements PlayerDAO {
 	public void addplayer(Player tempPlayer) {
 		Session currentSession = session.getCurrentSession();
 		currentSession.saveOrUpdate(tempPlayer);
+	}
+
+	@Override
+	public void updatePlayer(Player tempPlayer) {
+		Session currentSession = session.getCurrentSession();
+		currentSession.update(tempPlayer);
+	}
+
+	@Override
+	public List<Integer> getPlayerIds() {
+		Session currentSession = session.getCurrentSession();
+		return (ArrayList<Integer>) currentSession.createQuery("SELECT P.fantasyFootballId FROM Player P").list();
 	}
 
 }

@@ -74,10 +74,8 @@ public class HomeController {
 	
 	@GetMapping("/getTeamPoints")
 	public @ResponseBody String showFormForUpdate2() throws JsonGenerationException, JsonMappingException, IOException {
-		System.out.println("here");
 		League newLeague = leagueService.getLeague(league);
 		ArrayList<Team> teams = new ArrayList<Team>(newLeague.getTeams());
-		System.out.println("size is "+teams.size());
 		JSONArray array = new JSONArray();
 		for (Team team : teams) {
 			JSONObject json = new JSONObject();

@@ -11,14 +11,28 @@ import java.nio.charset.Charset;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GetJSONFromFantasyFootballAPI {
+	
+	@Scheduled(fixedDelay = 300000)
+	public void scheduleFixedDelayTask() throws JSONException, IOException {
+		updatePlayerInfo();
+	    System.out.println("Updating Player Info");
+	}
 
 	private static JSONObject playerInfo;
 
 	public static JSONObject getPlayerInfo() throws JSONException, IOException {
 		if (playerInfo == null)
 			playerInfo = fromUrl("bootstrap-static");
+		return playerInfo;
+	}
+	
+	public static JSONObject updatePlayerInfo() throws JSONException, IOException {
+		playerInfo = fromUrl("bootstrap-static");
 		return playerInfo;
 	}
 
@@ -63,7 +77,7 @@ public class GetJSONFromFantasyFootballAPI {
 	}
 
 	public static JSONArray getTeamPlayers(int team) throws JSONException, IOException {
-		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/event/4/picks");
+		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/event/6/picks");
 		JSONArray arr = json.getJSONArray("picks");
 		return arr;
 	}

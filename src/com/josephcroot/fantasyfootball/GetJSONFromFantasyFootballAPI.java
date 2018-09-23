@@ -84,7 +84,6 @@ public class GetJSONFromFantasyFootballAPI {
 
 	public static JSONArray getTeamPlayers(int team) throws JSONException, IOException {
 		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/event/"+getGameweek()+"/picks");
-		System.out.println("hit entry/" + Integer.toString(team) + "/event/"+getGameweek()+"/picks");
 		JSONArray arr = json.getJSONArray("picks");
 		return arr;
 	}

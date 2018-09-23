@@ -33,7 +33,7 @@ CREATE TABLE `team` (
   `manager_name` varchar(45) DEFAULT NULL,
   `gameweek_points` int DEFAULT NULL,
   `total_points` int DEFAULT NULL,
-  `captain` int(3) DEFAULT NULL,
+  `captain_id` int(3) DEFAULT NULL,
   `wildcard` BIT DEFAULT 0,
   `bench_boost` BIT DEFAULT 0,
   `triple_captain` BIT DEFAULT 0,

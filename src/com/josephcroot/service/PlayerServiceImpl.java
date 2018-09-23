@@ -42,7 +42,6 @@ public class PlayerServiceImpl implements PlayerService {
 	@Transactional
 	@Override
 	public Player getPlayer(int playerId) throws JSONException, IOException {
-
 		Player dbPlayer = playerDAO.getPlayer(playerId);
 		if (dbPlayer != null) {
 			return dbPlayer;

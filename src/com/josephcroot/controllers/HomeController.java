@@ -10,6 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,17 +26,15 @@ import com.josephcroot.service.LeagueService;
 import com.josephcroot.service.PlayerService;
 
 @Controller
-//@PropertySource("classpath:app.properties")
+@PropertySource("classpath:app.properties")
 public class HomeController {
 	@Autowired
 	private LeagueService leagueService;
 	@Autowired
 	private PlayerService playerService;
 	
-	//@Value("${league}")
-	//private int league;
-	
-	private int league = 148642;
+	@Value("${league}")
+	private int league;
 	
 	@RequestMapping("/")
 	public String home(Model theModel) throws JSONException, IOException {
@@ -57,7 +57,7 @@ public class HomeController {
 		return "graph";
 	}
 
-	@GetMapping("/getPlayer")
+	@RequestMapping("/getPlayer")
 	public String showFormForUpdate(@RequestParam("playerId") int theId, Model theModel)
 			throws JSONException, IOException {
 		Player tmp = playerService.getPlayer(theId);
@@ -65,14 +65,14 @@ public class HomeController {
 		return "player";
 	}
 	
-	@GetMapping("/getTeamInfoAsJSON")
+	@RequestMapping("/getTeamInfoAsJSON")
 	public @ResponseBody String showFormForUpdate() throws JsonGenerationException, JsonMappingException, IOException {
 		League newLeague = leagueService.getLeague(league);
 		ObjectMapper mapper = new ObjectMapper();
 		return mapper.writeValueAsString(newLeague.getTeams());
 	}
 	
-	@GetMapping("/getTeamPoints")
+	@RequestMapping("/getTeamPoints")
 	public @ResponseBody String showFormForUpdate2() throws JsonGenerationException, JsonMappingException, IOException {
 		League newLeague = leagueService.getLeague(league);
 		ArrayList<Team> teams = new ArrayList<Team>(newLeague.getTeams());

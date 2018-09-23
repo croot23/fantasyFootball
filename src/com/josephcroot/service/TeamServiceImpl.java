@@ -119,6 +119,7 @@ public class TeamServiceImpl implements TeamService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void deleteTeam(int teamId) {
 		teamDAO.deleteTeam(teamId);

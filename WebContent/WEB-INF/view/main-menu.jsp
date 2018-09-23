@@ -28,7 +28,7 @@
 					<th>BB</th>
 					<th>TC</th>
 					<!--<th>Expected Points</th>-->
-					<th>Captain</th>
+					<th>Captain (Points)</th>
 					<th>Gameweek Points</th>
 					<th>Total Points</th>
 				</tr>
@@ -38,7 +38,7 @@
 				<tr>
 				<td>${team.teamName}</td>
 				<td>${team.managerName}</td>
-				<td>${(team.teamValue+tempTeam.bank)/10}</td>
+				<td>${(team.teamValue+team.bank)/10}</td>
 				<td>${team.totalTransfers}</td>
 				<td>${team.wildcard==true ? "Yes" : ""}</td>
 				<td>${team.freeHit==true ? "Yes" : ""}</td>

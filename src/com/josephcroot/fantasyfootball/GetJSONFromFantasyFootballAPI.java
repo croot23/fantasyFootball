@@ -16,21 +16,30 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GetJSONFromFantasyFootballAPI {
+
+	private static JSONObject playerInfo;
+	private static int gameweek = 1;
 	
 	@Scheduled(fixedDelay = 300000)
 	public void scheduleFixedDelayTask() throws JSONException, IOException {
 		updatePlayerInfo();
-	    System.out.println("Updating Player Info");
+	}
+	
+	@Scheduled(fixedDelay = 300000)
+	public void updateGameweek() throws JSONException, IOException {
+		setGameweek();
 	}
 
-	private static JSONObject playerInfo;
+	public static int getGameweek() {
+		return gameweek;
+	}
 
 	public static JSONObject getPlayerInfo() throws JSONException, IOException {
 		if (playerInfo == null)
 			playerInfo = fromUrl("bootstrap-static");
 		return playerInfo;
 	}
-	
+
 	public static JSONObject updatePlayerInfo() throws JSONException, IOException {
 		playerInfo = fromUrl("bootstrap-static");
 		return playerInfo;
@@ -69,15 +78,13 @@ public class GetJSONFromFantasyFootballAPI {
 		JSONObject json = fromUrl(
 				"leagues-classic-standings/" + Integer.toString(league) + "?phase=1&le-page=1&ls-page=1");
 		JSONObject standings = (JSONObject) json.get("standings");
-		System.out.println(standings);
-		
 		JSONArray arr = standings.getJSONArray("results");
-		System.out.println(arr);
 		return arr;
 	}
 
 	public static JSONArray getTeamPlayers(int team) throws JSONException, IOException {
-		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/event/6/picks");
+		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/event/"+getGameweek()+"/picks");
+		System.out.println("hit entry/" + Integer.toString(team) + "/event/"+getGameweek()+"/picks");
 		JSONArray arr = json.getJSONArray("picks");
 		return arr;
 	}
@@ -87,9 +94,9 @@ public class GetJSONFromFantasyFootballAPI {
 		JSONObject obj = json.getJSONObject("entry");
 		return obj;
 	}
-	
+
 	public static JSONArray getTeamChipsInfo(int team) throws JSONException, IOException {
-		JSONObject json = fromUrl("entry/" + Integer.toString(team)+"/history");
+		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/history");
 		JSONArray arr = json.getJSONArray("chips");
 		return arr;
 	}
@@ -104,6 +111,27 @@ public class GetJSONFromFantasyFootballAPI {
 			}
 		}
 		return null;
+	}
+	//following is pretty trash, need to add a better way of handling the fantasy API when it's an Array not an Object
+	public static void setGameweek() throws JSONException, IOException {
+		JSONArray gameweekInfo = getGameweekInfo();
+		for (int i = 0; i < gameweekInfo.length(); i++) {
+			JSONObject current = gameweekInfo .getJSONObject(i);
+			if (current.getBoolean("is_next")==true) {
+				gameweek = current.getInt("id")-1;
+			}
+		}
+	}
+	public static JSONArray getGameweekInfo() throws JSONException, IOException {
+		InputStream is = new URL("https://fantasy.premierleague.com/drf/events").openStream();
+		try {
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			String jsonText = readAll(rd);
+			JSONArray json = new JSONArray(jsonText);
+			return json;
+		} finally {
+			is.close();
+		}
 	}
 
 }

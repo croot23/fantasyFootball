@@ -1,69 +1,120 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-
 <html>
+
 <title>Fantasy Football</title>
 
 <head>
-
-</head>
-
+<jsp:include page="header.jsp" />
 <body>
+	<div style="width: 90%; margin:auto">
+		<table id="table_id" class="display">
+			<thead>
+				<tr style="text-align: center; color:#4c16aa">
+					<th>Team Name</th>
+					<th>GK</th>
+					<th>GK</th>
+					<th>DEF</th>
+					<th>DEF</th>
+					<th>DEF</th>
+					<th>DEF</th>
+					<th>DEF</th>
+					<th>MID</th>
+					<th>MID</th>
+					<th>MID</th>
+					<th>MID</th>
+					<th>MID</th>
+					<th>FWD</th>
+					<th>FWD</th>
+					<th>FWD</th>
+				</tr>
+			</thead>
+			<tbody class="context">
+				<c:forEach var="team" items="${teams}">
 
-
-	<c:forEach var="team" items="${teams}">
-		<div style="float: left">
-			<table style="text-align: center; margin-left: 15px">
-				<thead>
 					<tr style="text-align: center">
-						<th>${team.teamName}</th>
+						<td style="width:150px"><b>${team.teamName}</b></td>
+						<c:forEach var="player" items="${team.players}">
+							<c:if test="${player.position == 1}">
+								<td>${player.webName}</td>
+							</c:if>
+						</c:forEach>
+						<c:forEach var="player" items="${team.players}">
+							<c:if test="${player.position == 2}">
+								<td>${player.webName}</td>
+							</c:if>
+						</c:forEach>
+						<c:forEach var="player" items="${team.players}">
+							<c:if test="${player.position == 3}">
+								<td>${player.webName}</td>
+							</c:if>
+						</c:forEach>
+						<c:forEach var="player" items="${team.players}">
+							<c:if test="${player.position == 4}">
+								<td>${player.webName}</td>
+							</c:if>
+						</c:forEach>
 					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="player" items="${team.players}">
-						<c:if test="${player.position == 1}">
-							<tr style="width: 30px">
-								<td>GK</td>
-								<td>${player.webName}</td>
-							</tr>
-						</c:if>
-					</c:forEach>
-					<c:forEach var="player" items="${team.players}">
-						<c:if test="${player.position == 2}">
-							<tr style="width: 30px">
-								<td>DEF</td>
-								<td>${player.webName}</td>
-							</tr>
-						</c:if>
-					</c:forEach>
-					<c:forEach var="player" items="${team.players}">
-						<c:if test="${player.position == 3}">
-							<tr style="width: 30px">
-								<td>MID</td>
-								<td>${player.webName}</td>
-							</tr>
-						</c:if>
-					</c:forEach>
-					<c:forEach var="player" items="${team.players}">
-						<c:if test="${player.position == 4}">
-							<tr style="width: 30px">
-								<td>FWD</td>
-								<td>${player.webName}</td>
-							</tr>
-						</c:if>
-					</c:forEach>
-					<tr>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</c:forEach>
-
-
+				</c:forEach>
+		</table>
+	</div>
 </body>
+
 <script>
 	$(document).ready(function() {
-		$('#table_id').DataTable();
+		$('#table_id').DataTable({
+			paging : false,
+			"bSort" : false
+		});
+	});
+	$(document).click(function(event) {
+		var text = $(event.target).text();
+		$(".context").unmark();
+		$(".context").mark(text);
+	});
+
+	$(function() {
+
+		var mark = function() {
+
+			var keyword = $("input[type='search']").val();
+
+			var options = {};
+			$("input[name='opt[]']").each(function() {
+				options[$(this).val()] = $(this).is(":checked");
+			});
+
+			$(".context").unmark({
+				done : function() {
+					$(".context").mark(keyword, options);
+				}
+			});
+		};
+		$("input[type='search']").on("input", mark);
 	});
 </script>
+
+<style>
+	table {
+		width: 90%
+	}
+	td {
+		padding: 1px 1px !important;
+		font-size:small !important;
+	}
+	th {
+		padding: 2px 2px 15px !important;
+		font-size:small !important;
+	}
+	mark {
+		padding: initial !important;
+		background-color:yellow !important;
+	}
+	tr {
+	height: 25px;
+	}
+	.all-teams {
+	color:yellow !important;
+	}
+</style>
 </html>

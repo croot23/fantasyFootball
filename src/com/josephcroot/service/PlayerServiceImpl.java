@@ -63,11 +63,11 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setTotalPoints(playerInfo.getInt("total_points"));
 		player.setPrice(playerInfo.getDouble("now_cost")/10);
 		player.setGameweekPoints(playerInfo.getInt("event_points"));
-		player.setBonusPoints(playerInfo.getDouble("bonus"));
+		player.setBonusPoints(playerInfo.getInt("bonus"));
 		player.setPointsPerGame(playerInfo.getDouble("points_per_game"));
 		player.setPosition(playerInfo.getInt("element_type"));
 		player.setWebName(playerInfo.getString("web_name"));
-		player.setTeam(playerInfo.getInt("team"));
+		player.setTeam(playerInfo.getInt("team_code"));
 	}
 	
 	@Override

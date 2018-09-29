@@ -39,7 +39,7 @@ public class HomeController {
 		theModel.addAttribute("teams", newLeague.getTeams());
 		return "all-teams";
 	}
-
+	
 	@RequestMapping("/graph")
 	public String graph() {
 		return "graph";

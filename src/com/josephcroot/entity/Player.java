@@ -41,23 +41,23 @@ public class Player {
 	private double pointsPerGame;
 
 	@Column(name = "bonus_points")
-	private double bonusPoints;
+	private int bonusPoints;
 
 	@Column(name = "position")
 	private double position;
 
 	@Column(name = "team")
-	private double team;
+	private int team;
 	
 	public double getTeam() {
 		return team;
 	}
 
-	public void setTeam(double team) {
+	public void setTeam(int team) {
 		this.team = team;
 	}
 
-	public void setBonusPoints(double bonusPoints) {
+	public void setBonusPoints(int bonusPoints) {
 		this.bonusPoints = bonusPoints;
 	}
 
@@ -83,10 +83,6 @@ public class Player {
 
 	public double getBonusPoints() {
 		return bonusPoints;
-	}
-
-	public void setBonusPoints(int bonusPoints) {
-		this.bonusPoints = bonusPoints;
 	}
 
 	public double getPosition() {

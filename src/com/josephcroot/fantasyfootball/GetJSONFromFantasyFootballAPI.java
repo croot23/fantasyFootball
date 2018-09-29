@@ -46,7 +46,6 @@ public class GetJSONFromFantasyFootballAPI {
 	}
 
 	private static String readAll(Reader rd) throws IOException {
-
 		StringBuilder sb = new StringBuilder();
 		int cp;
 		while ((cp = rd.read()) != -1) {
@@ -111,6 +110,7 @@ public class GetJSONFromFantasyFootballAPI {
 		}
 		return null;
 	}
+	
 	//following is pretty trash, need to add a better way of handling the fantasy API when it's an Array not an Object
 	public static void setGameweek() throws JSONException, IOException {
 		JSONArray gameweekInfo = getGameweekInfo();

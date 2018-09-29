@@ -1,0 +1,12 @@
+.dataTables_info {
+	display: none;
+}
+th {
+	text-align: center !important;
+}
+.nav-item {
+	width:75px;
+}
+a:hover {
+	text-decoration: none !important;
+}

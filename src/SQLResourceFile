@@ -20,9 +20,9 @@ CREATE TABLE `player` (
   `form` DECIMAL(3,1) DEFAULT NULL,
   `price` DECIMAL(3,1) DEFAULT NULL,
   `points_per_game` DECIMAL(3,1) DEFAULT NULL,
-  `bonus_points` DECIMAL(3,1) DEFAULT NULL,
+  `bonus_points` int(3) DEFAULT NULL,
   `position` DECIMAL(1,0) DEFAULT NULL,
-  `team` DECIMAL(3,1) DEFAULT NULL,
+  `team` int(3) DEFAULT NULL,
   `injured` BIT DEFAULT 0,
   PRIMARY KEY (`fantasy_football_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

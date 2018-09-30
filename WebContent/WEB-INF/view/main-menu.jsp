@@ -15,12 +15,12 @@
 				<th>Team Value</th>
 				<th>Transfers</th>
 				<th>Wildcard</th>
-				<th>FH</th>
-				<th>BB</th>
-				<th>TC</th>
+				<th data-toggle="tooltip" title="Free Hit Played">FH</th>
+				<th data-toggle="tooltip" title="Bench Boost Played">BB</th>
+				<th data-toggle="tooltip" title="Triple Captain Played">TC</th>
 				<!--<th>Expected Points</th>-->
 				<th>Captain (Points)</th>
-				<th>GW Points</th>
+				<th data-toggle="tooltip" title="Gameweek Points">GW Points</th>
 				<th>Total Points</th>
 			</tr>
 		</thead>
@@ -36,7 +36,7 @@
 					<td>${team.benchBoost==true ? "Yes" : ""}</td>
 					<td>${tTeam.tripleCaptain==true ? "Yes" : ""}</td>
 					<!--<td></td>-->
-					<td>${team.captain.webName}(${team.captain.gameweekPoints*2})</td>
+					<td>${team.captain.webName} (${team.captain.gameweekPoints*2})</td>
 					<td>${team.gameweekPoints}</td>
 					<td>${team.totalPoints}</td>
 				</tr>

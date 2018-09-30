@@ -68,14 +68,14 @@ public class GetJSONFromFantasyFootballAPI {
 
 	public static JSONObject getLeagueInfo(int league) throws JSONException, IOException {
 		JSONObject json = fromUrl(
-				"leagues-classic-standings/" + Integer.toString(league) + "?phase=1&le-page=1&ls-page=1");
+				"leagues-classic-standings/" + Integer.toString(league));
 		JSONObject arr = json.getJSONObject("league");
 		return arr;
 	}
 
 	public static JSONArray getTeams(int league) throws JSONException, IOException {
 		JSONObject json = fromUrl(
-				"leagues-classic-standings/" + Integer.toString(league) + "?phase=1&le-page=1&ls-page=1");
+				"leagues-classic-standings/" + Integer.toString(league));
 		JSONObject standings = (JSONObject) json.get("standings");
 		JSONArray arr = standings.getJSONArray("results");
 		return arr;

@@ -27,7 +27,12 @@
 		<tbody>
 			<c:forEach var="team" items="${teams}">
 				<tr>
-					<td>${team.teamName}</td>
+					<td><b>${team.teamName}</b>
+						<button class="mainScreenInfoButtons" type="button"
+							data-toggle="modal"
+							data-target="#${team.teamName.replace('\'',' ')}">
+							<i class="fas fa-info"></i>
+						</button></td>
 					<td>${team.managerName}</td>
 					<td>${(team.teamValue+team.bank)/10}</td>
 					<td>${team.totalTransfers}</td>
@@ -36,10 +41,105 @@
 					<td>${team.benchBoost==true ? "Yes" : ""}</td>
 					<td>${tTeam.tripleCaptain==true ? "Yes" : ""}</td>
 					<!--<td></td>-->
-					<td>${team.captain.webName} (${team.captain.gameweekPoints*2})</td>
-					<td>${team.gameweekPoints}</td>
+					<td>${team.captain.webName}(${team.captain.gameweekPoints*2})</td>
+					<td>${team.gameweekPoints}<button
+							class="mainScreenInfoButtons"  type="button"
+							data-toggle="modal"
+							data-target="#${team.teamName.replace('\'',' ')}players">
+							<i class="fas fa-info"></i>
+						</button></td>
 					<td>${team.totalPoints}</td>
 				</tr>
+				<div class="modal fade" id="${team.teamName.replace('\'',' ')}"
+					role="dialog" aria-labelledby="exampleModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">${team.teamName}</h5>
+							</div>
+							<div class="modal-body">
+								<ul>
+									<li><b>Overall Rank:</b> 
+										<span class="teamInfoValues">${team.overallRank}</span>
+									</li>
+									<li><b>Points On The Bench:</b>
+										<span class="teamInfoValues">${team.substitutePoints}</span>
+									</li>
+								</ul>
+								<p>
+									<b>Weekly Transfers:</b>
+								</p>
+								<c:forEach var="transfer" items="${team.weeklyTransfers}">
+									<ul>
+										<li>${transfer.key.webName}
+											(${transfer.key.gameweekPoints}) -> ${transfer.value.webName}
+											(${transfer.value.gameweekPoints})</li>
+									</ul>
+								</c:forEach>
+							</div>
+							<div class="modal-footer"></div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade"
+					id="${team.teamName.replace('\'',' ')}players" role="dialog"
+					aria-labelledby="exampleModalLabel">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">${team.teamName}</h5>
+							</div>
+							<div class="modal-body">
+								<p>
+									<b>Players Points</b>
+								</p>
+								<ul>
+									<c:forEach var="player" items="${team.players}">
+										<c:if test="${player.position == 1}">
+											<li><span style="color:grey; margin-right:5px">GK:</span> ${player.webName} 
+											<c:choose>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b><span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+											</c:choose>
+											</li>
+										</c:if>
+									</c:forEach>
+									<c:forEach var="player" items="${team.players}">
+										<c:if test="${player.position == 2}">
+											<li><span style="color:grey; margin-right:5px">DF:</span> ${player.webName} 
+											<c:choose>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+											</c:choose>
+											</li>
+										</c:if>
+									</c:forEach>
+									<c:forEach var="player" items="${team.players}">
+										<c:if test="${player.position == 3}">
+											<li><span style="color:grey; margin-right:5px">MF:</span> ${player.webName} 
+											<c:choose>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+											</c:choose>
+											</li>
+										</c:if>
+									</c:forEach>
+									<c:forEach var="player" items="${team.players}">
+										<c:if test="${player.position == 4}">
+											<li><span style="color:grey; margin-right:5px">FW:</span> ${player.webName} 
+											<c:choose>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+											</c:choose>
+											</li>
+										</c:if>
+									</c:forEach>
+								</ul>
+							</div>
+							<div class="modal-footer"></div>
+						</div>
+					</div>
+				</div>
 			</c:forEach>
 		</tbody>
 	</table>
@@ -53,11 +153,12 @@
 	});
 </script>
 <style>
-	label {
-		display: none
-	}
-	.home {
-		color: yellow !important;
-	}
+label {
+	display: none
+}
+
+.home {
+	color: yellow !important;
+}
 </style>
 </html>

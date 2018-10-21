@@ -111,6 +111,12 @@ public class GetJSONFromFantasyFootballAPI {
 		return null;
 	}
 	
+	public static JSONArray getTransfers(int team) throws JSONException, IOException {
+		JSONObject json = fromUrl("entry/" + Integer.toString(team) + "/transfers");
+		JSONArray arr = json.getJSONArray("history");
+		return arr;
+	}
+	
 	//following is pretty trash, need to add a better way of handling the fantasy API when it's an Array not an Object
 	public static void setGameweek() throws JSONException, IOException {
 		JSONArray gameweekInfo = getGameweekInfo();

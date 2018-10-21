@@ -8,6 +8,7 @@
 <jsp:include page="header.jsp" />
 <body>
 	<div style="width: 90%; margin:auto">
+		Click on a player or search for a player to see which other teams include him.
 		<table id="table_id" class="display">
 			<thead>
 				<tr style="text-align: center; color:#4c16aa">
@@ -34,28 +35,29 @@
 
 					<tr style="text-align: center">
 						<td style="width:150px"><b>${team.teamName}</b></td>
-						<c:forEach var="player" items="${team.players}">
+						<c:forEach var="player" items="${team.allPlayers}">
 							<c:if test="${player.position == 1}">
 								<td>${player.webName}</td>
 							</c:if>
 						</c:forEach>
-						<c:forEach var="player" items="${team.players}">
+						<c:forEach var="player" items="${team.allPlayers}">
 							<c:if test="${player.position == 2}">
 								<td>${player.webName}</td>
 							</c:if>
 						</c:forEach>
-						<c:forEach var="player" items="${team.players}">
+						<c:forEach var="player" items="${team.allPlayers}">
 							<c:if test="${player.position == 3}">
 								<td>${player.webName}</td>
 							</c:if>
 						</c:forEach>
-						<c:forEach var="player" items="${team.players}">
+						<c:forEach var="player" items="${team.allPlayers}">
 							<c:if test="${player.position == 4}">
 								<td>${player.webName}</td>
 							</c:if>
 						</c:forEach>
 					</tr>
 				</c:forEach>
+				</tbody>
 		</table>
 	</div>
 </body>

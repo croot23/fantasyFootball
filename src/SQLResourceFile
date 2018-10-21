@@ -1,10 +1,6 @@
-SELECT * FROM `team_player`;
-SELECT * FROM `player`;
-SELECT * FROM `team`;
-SELECT * FROM `league`;
-SELECT * FROM `league_team`;
-
 DROP TABLE IF EXISTS `team_player`;
+DROP TABLE IF EXISTS `team_substitutes`;
+DROP TABLE IF EXISTS `team_transfers`;
 DROP TABLE IF EXISTS `league_team`;
 DROP TABLE IF EXISTS `player`;
 DROP TABLE IF EXISTS `team`;
@@ -42,6 +38,7 @@ CREATE TABLE `team` (
   `team_value` int DEFAULT NULL,
   `bank` int DEFAULT NULL,
   `total_transfers` int DEFAULT NULL,
+  `overall_rank` int DEFAULT NULL,
   KEY `player_id` (`captain_id`),
   PRIMARY KEY (`fantasy_football_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
@@ -58,7 +55,7 @@ CREATE TABLE `team_player` (
   
   PRIMARY KEY (`team_id`,`player_id`),
   
-  KEY `FK_STUDENT_idx` (`player_id`),
+  KEY `FK_TEAM_PLAYER_idx` (`player_id`),
   
   CONSTRAINT `FK_TEAM` FOREIGN KEY (`team_id`) 
   REFERENCES `Team` (`fantasy_football_id`) 
@@ -67,7 +64,42 @@ CREATE TABLE `team_player` (
   CONSTRAINT `FK_PLAYER` FOREIGN KEY (`player_id`) 
   REFERENCES `Player` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
-) 
+);
+
+CREATE TABLE `team_substitutes` (
+  `team_id` int(11) NOT NULL,
+  `player_id` int(11) NOT NULL,
+  
+  PRIMARY KEY (`team_id`,`player_id`),
+  
+  KEY `FK_TEAM_SUBSTITUTE_idx` (`player_id`),
+  
+  CONSTRAINT `FK_TEAM2` FOREIGN KEY (`team_id`) 
+  REFERENCES `Team` (`fantasy_football_id`) 
+  ON DELETE NO ACTION ON UPDATE NO ACTION,
+  
+  CONSTRAINT `FK_PLAYER2` FOREIGN KEY (`player_id`) 
+  REFERENCES `Player` (`fantasy_football_id`) 
+  ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE `team_transfers` (
+  `team_id` int(11) NOT NULL,
+  `player_in` int(11) NOT NULL,
+  `player_out` int(11) NOT NULL,
+  
+  PRIMARY KEY (`team_id`,`player_out`),
+  
+  KEY `FK_TEAM_TRANSFERS_idx` (`player_out`),
+  
+  CONSTRAINT `FK_TEAM3` FOREIGN KEY (`team_id`) 
+  REFERENCES `Team` (`fantasy_football_id`) 
+  ON DELETE NO ACTION ON UPDATE NO ACTION,
+  
+  CONSTRAINT `FK_PLAYER3` FOREIGN KEY (`player_out`) 
+  REFERENCES `Player` (`fantasy_football_id`) 
+  ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 CREATE TABLE `league_team` (
   `league_id` int(11) NOT NULL,
@@ -84,7 +116,6 @@ CREATE TABLE `league_team` (
   CONSTRAINT `FK_TEAM_2` FOREIGN KEY (`team_id`) 
   REFERENCES `Team` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
-)
+);
 
 SET FOREIGN_KEY_CHECKS = 1;
-

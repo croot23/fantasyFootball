@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,20 @@ import com.josephcroot.fantasyfootball.GetJSONFromFantasyFootballAPI;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
+	final static Logger log = Logger.getLogger(PlayerServiceImpl.class);
+
 	@Autowired
 	private PlayerDAO playerDAO;
-	
+
 	@Transactional
 	@Scheduled(fixedDelay = 60000)
 	public void scheduleFixedDelayTask() throws JSONException, IOException {
-	    updatePlayerInfo();
+		log.info("Updating Players");
+		try {
+			updatePlayerInfo();
+		} catch (JSONException e) {
+			log.error(e);
+		}
 	}
 
 	@Transactional
@@ -33,9 +41,9 @@ public class PlayerServiceImpl implements PlayerService {
 	public void updatePlayerInfo() throws JSONException, IOException {
 		List<Integer> result = new ArrayList<Integer>(playerDAO.getPlayerIds());
 		for (int playerId : result) {
-				Player updatedPlayer = playerDAO.getPlayer(playerId);
-				updatePlayer(updatedPlayer);
-				playerDAO.updatePlayer(updatedPlayer);
+			Player updatedPlayer = playerDAO.getPlayer(playerId);
+			updatePlayer(updatedPlayer);
+			playerDAO.updatePlayer(updatedPlayer);
 		}
 	}
 
@@ -45,8 +53,7 @@ public class PlayerServiceImpl implements PlayerService {
 		Player dbPlayer = playerDAO.getPlayer(playerId);
 		if (dbPlayer != null) {
 			return dbPlayer;
-		}
-		else {
+		} else {
 			Player tmpPlayer = new Player();
 			tmpPlayer.setFantasyFootballId(playerId);
 			updatePlayer(tmpPlayer);
@@ -61,7 +68,7 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setLastName(playerInfo.getString("second_name"));
 		player.setForm(playerInfo.getDouble("form"));
 		player.setTotalPoints(playerInfo.getInt("total_points"));
-		player.setPrice(playerInfo.getDouble("now_cost")/10);
+		player.setPrice(playerInfo.getDouble("now_cost") / 10);
 		player.setGameweekPoints(playerInfo.getInt("event_points"));
 		player.setBonusPoints(playerInfo.getInt("bonus"));
 		player.setPointsPerGame(playerInfo.getDouble("points_per_game"));
@@ -69,7 +76,7 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setWebName(playerInfo.getString("web_name"));
 		player.setTeam(playerInfo.getInt("team_code"));
 	}
-	
+
 	@Override
 	@Transactional
 	public void deletePlayer(int playerId) {

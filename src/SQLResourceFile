@@ -1,3 +1,5 @@
+USE fantasy_football;
+
 DROP TABLE IF EXISTS `team_player`;
 DROP TABLE IF EXISTS `team_substitutes`;
 DROP TABLE IF EXISTS `team_transfers`;
@@ -58,11 +60,11 @@ CREATE TABLE `team_player` (
   KEY `FK_TEAM_PLAYER_idx` (`player_id`),
   
   CONSTRAINT `FK_TEAM` FOREIGN KEY (`team_id`) 
-  REFERENCES `Team` (`fantasy_football_id`) 
+  REFERENCES `team` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION,
   
   CONSTRAINT `FK_PLAYER` FOREIGN KEY (`player_id`) 
-  REFERENCES `Player` (`fantasy_football_id`) 
+  REFERENCES `player` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -75,11 +77,11 @@ CREATE TABLE `team_substitutes` (
   KEY `FK_TEAM_SUBSTITUTE_idx` (`player_id`),
   
   CONSTRAINT `FK_TEAM2` FOREIGN KEY (`team_id`) 
-  REFERENCES `Team` (`fantasy_football_id`) 
+  REFERENCES `team` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION,
   
   CONSTRAINT `FK_PLAYER2` FOREIGN KEY (`player_id`) 
-  REFERENCES `Player` (`fantasy_football_id`) 
+  REFERENCES `player` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -93,11 +95,11 @@ CREATE TABLE `team_transfers` (
   KEY `FK_TEAM_TRANSFERS_idx` (`player_out`),
   
   CONSTRAINT `FK_TEAM3` FOREIGN KEY (`team_id`) 
-  REFERENCES `Team` (`fantasy_football_id`) 
+  REFERENCES `team` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION,
   
   CONSTRAINT `FK_PLAYER3` FOREIGN KEY (`player_out`) 
-  REFERENCES `Player` (`fantasy_football_id`) 
+  REFERENCES `player` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -110,11 +112,11 @@ CREATE TABLE `league_team` (
   KEY `FK_id_1` (`team_id`),
   
   CONSTRAINT `FK_LEAGUE` FOREIGN KEY (`league_id`) 
-  REFERENCES `League` (`fantasy_football_id`) 
+  REFERENCES `league` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION,
   
   CONSTRAINT `FK_TEAM_2` FOREIGN KEY (`team_id`) 
-  REFERENCES `Team` (`fantasy_football_id`) 
+  REFERENCES `team` (`fantasy_football_id`) 
   ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 

@@ -26,7 +26,7 @@
 
 	window.onload = function() {
 
-		var graphDat = JSON.parse(Get("/fantasy-football/getTeamPoints"));
+		var graphDat = JSON.parse(Get("${pageContext.servletContext.contextPath}/getTeamPoints"));
 
 		graphData = graphDat.sort(predicateBy("y"));
 

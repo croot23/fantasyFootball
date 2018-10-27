@@ -1,3 +1,9 @@
+body
+{
+    position: absolute;
+    min-width: 100%;
+    min-height: 100%;
+}
 .dataTables_info {
 	display: none;
 }
@@ -13,9 +19,15 @@ a:hover {
 
 .mainScreenInfoButtons {
 	float: right; 
-	margin-right: 20%;
 }
 .teamInfoValues {
 	float: right; 
 	margin-right: 20%;
+}
+.modal-title {
+	color:#4c16aa;
+}
+.playerModalInfo {
+	float: right; 
+	margin-right: 40%;
 }

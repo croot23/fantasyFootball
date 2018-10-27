@@ -17,7 +17,7 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Team")
+@Table(name = "team")
 public class Team {
 
 	@Id

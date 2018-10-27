@@ -10,7 +10,7 @@
 		style="text-align: center; margin-left: 15px; padding-right: 30px;">
 		<thead>
 			<tr style="text-align: center; color: #4c16aa">
-				<th>Team Name</th>
+				<th style="min-width:150px">Team Name</th>
 				<th>Manager</th>
 				<th>Team Value</th>
 				<th>Transfers</th>
@@ -27,7 +27,7 @@
 		<tbody>
 			<c:forEach var="team" items="${teams}">
 				<tr>
-					<td><b>${team.teamName}</b>
+					<td style="min-width:150px"><b>${team.teamName}</b>
 						<button class="mainScreenInfoButtons" type="button"
 							data-toggle="modal"
 							data-target="#${team.teamName.replace('\'',' ')}">
@@ -98,8 +98,8 @@
 										<c:if test="${player.position == 1}">
 											<li><span style="color:grey; margin-right:5px">GK:</span> ${player.webName} 
 											<c:choose>
-												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b><span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
-												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b><span class="playerModalInfo">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span class="playerModalInfo">${player.gameweekPoints}</span></c:otherwise>
 											</c:choose>
 											</li>
 										</c:if>
@@ -108,8 +108,8 @@
 										<c:if test="${player.position == 2}">
 											<li><span style="color:grey; margin-right:5px">DF:</span> ${player.webName} 
 											<c:choose>
-												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
-												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span class="playerModalInfo">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span class="playerModalInfo">${player.gameweekPoints}</span></c:otherwise>
 											</c:choose>
 											</li>
 										</c:if>
@@ -118,8 +118,8 @@
 										<c:if test="${player.position == 3}">
 											<li><span style="color:grey; margin-right:5px">MF:</span> ${player.webName} 
 											<c:choose>
-												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
-												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span class="playerModalInfo">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span class="playerModalInfo">${player.gameweekPoints}</span></c:otherwise>
 											</c:choose>
 											</li>
 										</c:if>
@@ -128,8 +128,8 @@
 										<c:if test="${player.position == 4}">
 											<li><span style="color:grey; margin-right:5px">FW:</span> ${player.webName} 
 											<c:choose>
-												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span style="float: right; margin-right: 40%;">${player.gameweekPoints*2}</span></c:when>
-												<c:otherwise><span style="float: right; margin-right: 40%;">${player.gameweekPoints}</span></c:otherwise>
+												<c:when test="${player.webName.equals(team.captain.webName)}"><b>(C)</b> <span class="playerModalInfo">${player.gameweekPoints*2}</span></c:when>
+												<c:otherwise><span class="playerModalInfo">${player.gameweekPoints}</span></c:otherwise>
 											</c:choose>
 											</li>
 										</c:if>

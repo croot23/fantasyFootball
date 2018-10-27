@@ -38,17 +38,15 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark"
 	style="margin-bottom: 15px; min-width:100%;">
 	<div class="navbar" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active" style="width: 75px"><a class="home"
+			<span class="nav-item active" style="width: 75px"><a class="home"
 				style="color: white" class="nav-link"
-				href="${pageContext.servletContext.contextPath}/">Home</a></li>
-			<li class="nav-item active"><a class="graph"
+				href="${pageContext.servletContext.contextPath}/">Home</a></span>
+			<span class="nav-item active"><a class="graph"
 				style="color: white" class="nav-link"
-				href="${pageContext.servletContext.contextPath}/graph">Graph</a></li>
-			<li class="nav-item active"><a class="all-teams"
+				href="${pageContext.servletContext.contextPath}/graph">Graph</a></span>
+			<span class="nav-item active"><a class="all-teams"
 				style="color: white" class="nav-link"
 				href="${pageContext.servletContext.contextPath}/all-teams">All
-					Teams</a></li>
-		</ul>
+					Teams</a></span>
 	</div>
 </nav>

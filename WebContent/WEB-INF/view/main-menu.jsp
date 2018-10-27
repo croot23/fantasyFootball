@@ -7,10 +7,10 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<table id="table_id" class="display"
-		style="text-align: center; margin-left: 15px; padding-right: 30px;">
+		style="text-align: center; margin-left: 15px; padding-right: 30px; width:98%; margin-left:2%">
 		<thead>
 			<tr style="text-align: center; color: #4c16aa">
-				<th style="min-width:150px">Team Name</th>
+				<th style="min-width:160px">Team Name</th>
 				<th>Manager</th>
 				<th>Team Value</th>
 				<th>Transfers</th>
@@ -156,9 +156,11 @@
 label {
 	display: none
 }
-
 .home {
 	color: yellow !important;
+}
+table.dataTable.no-footer {
+    border-bottom: none !important;
 }
 </style>
 </html>

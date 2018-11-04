@@ -36,7 +36,6 @@ public class LeagueServiceImpl implements LeagueService {
 			League newLeague = new League();
 			try {
 				JSONObject leagueInfo = GetJSONFromFantasyFootballAPI.getLeagueInfo(leagueId);
-				System.out.println(leagueInfo);
 				newLeague.setName(leagueInfo.getString("name"));
 				newLeague.setFantasyFootballId(leagueId);
 			} catch (JSONException e) {
@@ -51,8 +50,6 @@ public class LeagueServiceImpl implements LeagueService {
 				for (int i = 0; i < teamsJSON.length(); i++) {
 					// Create Team
 					JSONObject currentTeam = teamsJSON.getJSONObject(i);
-					System.out.println(currentTeam);
-					System.out.println(currentTeam.getInt("id"));
 					Team team = teamService.getTeam(currentTeam.getInt("entry"));
 					teams.add(team);
 				}

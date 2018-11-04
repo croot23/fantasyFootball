@@ -37,7 +37,7 @@ public class TeamServiceImpl implements TeamService {
 	private PlayerService playerService;
 
 	@Transactional
-	@Scheduled(fixedDelay = 30000)
+	@Scheduled(fixedDelay = 60000)
 	public void scheduleFixedDelayTask() throws JSONException, IOException {
 		updateTeamInfo();
 	}

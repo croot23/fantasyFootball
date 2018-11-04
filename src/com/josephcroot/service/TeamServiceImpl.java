@@ -74,7 +74,6 @@ public class TeamServiceImpl implements TeamService {
 
 			// General team info
 			JSONObject teamInfo = GetJSONFromFantasyFootballAPI.getTeamInfo(newTeam.getFantasyFootballId());
-			newTeam.setTotalPoints(teamInfo.getInt("summary_overall_points"));
 			newTeam.setTeamName(teamInfo.getString("name"));
 			newTeam.setTeamValue(teamInfo.getDouble("value"));
 			newTeam.setBank(teamInfo.getDouble("bank"));

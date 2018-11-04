@@ -138,5 +138,9 @@ public class GetJSONFromFantasyFootballAPI {
 		}
 		return null;
 	}
-
+	
+	public static JSONArray getTeamPoints(int team) throws JSONException, IOException {
+		return getJSONArrayFromJSONObject("entry/" + Integer.toString(team) + "/history", null, "history");
+	}
+	
 }

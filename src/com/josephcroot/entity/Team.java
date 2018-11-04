@@ -119,14 +119,7 @@ public class Team {
 
 	public int getTotalPoints() {
 		int firstElevenPoints = getFirstElevenGameweekPoints();
-		int gameweekPoints = getCurrentFantasyGameweekPoints();
-		//if gameweek points haven't updated, return combined first 11 player points (player points are updated in real time)
-		if (gameweekPoints >= firstElevenPoints) {
-			return totalPoints;
-		}
-		else {
-			return totalPoints + (firstElevenPoints - gameweekPoints);
-		}
+			return totalPoints + firstElevenPoints;
 	}
 	
 	public int getSubstitutePoints() {

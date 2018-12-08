@@ -6,11 +6,12 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<table id="table_id" class="display"
-		style="text-align: center; margin-left: 15px; padding-right: 30px; width:98%; margin-left:2%">
+	<div class="mainTable">
+	<table id="table_id" class="display" 
+		style="text-align: center; font-size:87%;">
 		<thead>
 			<tr style="text-align: center; color: #4c16aa">
-				<th style="min-width:160px">Team Name</th>
+				<th style="min-width:180px">Team Name</th>
 				<th>Manager</th>
 				<th>Team Value</th>
 				<th>Transfers</th>
@@ -143,6 +144,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
 </body>
 <script>
 	$(document).ready(function() {

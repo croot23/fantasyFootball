@@ -121,6 +121,9 @@ public class TeamServiceImpl implements TeamService {
 				if (currentPlayer.getBoolean("is_captain")) {
 					newTeam.setCaptain(player);
 				}
+				if (currentPlayer.getBoolean("is_vice_captain")) {
+					newTeam.setViceCaptain(player);
+				}
 				if (currentPlayer.getInt("position") < 12) {
 					players.add(player);
 				} else {

@@ -22,6 +22,7 @@ CREATE TABLE `player` (
   `position` DECIMAL(1,0) DEFAULT NULL,
   `team` int(3) DEFAULT NULL,
   `injured` BIT DEFAULT 0,
+  `did_not_play` BIT DEFAULT 0,
   PRIMARY KEY (`fantasy_football_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -32,6 +33,7 @@ CREATE TABLE `team` (
   `gameweek_points` int DEFAULT NULL,
   `total_points` int DEFAULT NULL,
   `captain_id` int(3) DEFAULT NULL,
+  `vice_captain_id` int(3) DEFAULT NULL,
   `wildcard` BIT DEFAULT 0,
   `bench_boost` BIT DEFAULT 0,
   `triple_captain` BIT DEFAULT 0,

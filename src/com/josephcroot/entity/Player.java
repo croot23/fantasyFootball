@@ -49,6 +49,9 @@ public class Player {
 	@Column(name = "team")
 	private int team;
 	
+	@Column(name = "did_not_play")
+	private boolean didNotPlay;
+	
 	public double getTeam() {
 		return team;
 	}
@@ -159,6 +162,14 @@ public class Player {
 
 	public int getGameweekPoints() {
 		return gameweekPoints;
+	}
+	
+	public boolean didNotPlay() {
+		return didNotPlay;
+	}
+
+	public void setDidNotPlay(boolean didNotPlay) {
+		this.didNotPlay = didNotPlay;
 	}
 
 }

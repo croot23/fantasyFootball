@@ -1,4 +1,7 @@
 <head>
+<!-- 
+-- Code at www.github.com/croot23 -- 
+-->
 <link rel="shortcut icon" type="image/x-icon"
 	href="${pageContext.servletContext.contextPath}/resources/myfavicon.ico" />
 <link rel="icon" href="favicon.ico" type="image/x-icon"
@@ -36,7 +39,7 @@
 
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark"
-	style="margin-bottom: 15px; min-width:100%;">
+	style="margin-bottom: 15px;">
 	<div class="navbar" id="navbarSupportedContent">
 			<span class="nav-item active" style="width: 75px"><a class="home"
 				style="color: white" class="nav-link"

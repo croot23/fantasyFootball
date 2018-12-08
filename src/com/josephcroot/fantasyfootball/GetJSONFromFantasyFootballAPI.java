@@ -22,7 +22,7 @@ public class GetJSONFromFantasyFootballAPI {
 
 	@Scheduled(fixedDelay = 300000)
 	public void updatePlayers() throws JSONException, IOException {
-		updatePlayerInfo();
+		playerInfo = updatePlayerInfo();
 	}
 
 	public static JSONObject updatePlayerInfo() throws JSONException, IOException {
@@ -137,6 +137,10 @@ public class GetJSONFromFantasyFootballAPI {
 			}
 		}
 		return null;
+	}
+	
+	public static JSONArray getPlayerGameweekInfo(int id) throws JSONException, IOException {
+		return getJSONArrayFromJSONObject("element-summary/"+id, null, "explain");
 	}
 	
 	public static JSONArray getTeamPoints(int team) throws JSONException, IOException {

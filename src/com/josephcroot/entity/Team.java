@@ -66,6 +66,18 @@ public class Team {
 	@ManyToOne
 	@JoinColumn(name = "captain_id")
 	private Player captain;
+	
+	@ManyToOne
+	@JoinColumn(name = "vice_captain_id")
+	private Player viceCaptain;
+
+	public Player getViceCaptain() {
+		return viceCaptain;
+	}
+
+	public void setViceCaptain(Player viceCaptain) {
+		this.viceCaptain = viceCaptain;
+	}
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, })
 	@JoinTable(name = "team_player", 
@@ -98,7 +110,7 @@ public class Team {
 		for (Player player : firstEleven) {
 			firstElevenGameweekPoints += player.getGameweekPoints();
 			//If it's the captain the points are doubled remember!
-			if (player == captain)
+			if (player == getCaptain())
 				firstElevenGameweekPoints += player.getGameweekPoints();
 		}
 		return firstElevenGameweekPoints;
@@ -244,7 +256,10 @@ public class Team {
 	}
 
 	public Player getCaptain() {
-		return captain;
+		if (captain.didNotPlay() == false)
+			return captain;
+		else 
+			return viceCaptain;
 	}
 
 	public void setCaptain(Player captain) {

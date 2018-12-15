@@ -116,7 +116,7 @@ public class Team {
 			if (player == getCaptain())
 				firstElevenGameweekPoints += player.getGameweekPoints();
 		}
-		return firstElevenGameweekPoints - transferHits;
+		return firstElevenGameweekPoints;
 	}
 	
 	public int getGameweekPoints() {
@@ -133,7 +133,7 @@ public class Team {
 	
 	public int getTotalPoints() {
 		int firstElevenPoints = getFirstElevenGameweekPoints();
-			return totalPoints + firstElevenPoints;
+			return totalPoints + (firstElevenPoints - transferHits);
 	}
 	
 	public int getSubstitutePoints() {

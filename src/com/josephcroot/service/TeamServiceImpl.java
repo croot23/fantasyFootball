@@ -139,15 +139,17 @@ public class TeamServiceImpl implements TeamService {
 			}
 
 			// Automatic substitutes
+			Set<Player> playersToAdd = new HashSet<>();
+			Set<Player> playersToRemove = new HashSet<>();
 			for (Player player : players) {
 				if (player.didNotPlay() == true) {
-
 					// Goalkeepers
 					if (player.getPosition() == 1) {
 						for (Player substitute : substitutes) {
 							if (substitute.getPosition() == 1 && substitute.didNotPlay() == false) {
-								players.add(substitute);
-								substitutes.remove(substitute);
+								playersToAdd.add(substitute);
+								playersToRemove.add(substitute);
+								
 							}
 						}
 					}
@@ -157,14 +159,14 @@ public class TeamServiceImpl implements TeamService {
 						for (Player substitute : substitutes) {
 							if (substitute.didNotPlay() == false) {
 								if (defenders > 3) {
-									players.add(substitute);
-									substitutes.remove(substitute);
+									playersToAdd.add(substitute);
+									playersToRemove.add(substitute);
 									defenders = (substitute.getPosition() == 2) ? defenders + 1 : defenders - 1;
 									break;
 								} else {
 									if (substitute.getPosition() == 2 && substitute.didNotPlay() == false) {
-										players.add(substitute);
-										substitutes.remove(substitute);
+										playersToAdd.add(substitute);
+										playersToRemove.add(substitute);
 										break;
 									}
 								}
@@ -176,8 +178,8 @@ public class TeamServiceImpl implements TeamService {
 					if (player.getPosition() == 3) {
 						for (Player substitute : substitutes) {
 							if (substitute.didNotPlay() == false) {
-								players.add(substitute);
-								substitutes.remove(substitute);
+								playersToAdd.add(substitute);
+								playersToRemove.add(substitute);
 								break;
 							}
 						}
@@ -187,14 +189,14 @@ public class TeamServiceImpl implements TeamService {
 							for (Player substitute : substitutes) {
 								if (substitute.didNotPlay() == false) {
 									if (forwards > 1) {
-										players.add(substitute);
-										substitutes.remove(substitute);
+										playersToAdd.add(substitute);
+										playersToRemove.add(substitute);
 										forwards = (substitute.getPosition() == 4) ? forwards + 1 : forwards - 1;
 										break;
 									} else {
 										if (substitute.getPosition() == 4 && substitute.didNotPlay() == false) {
-											players.add(substitute);
-											substitutes.remove(substitute);
+											playersToAdd.add(substitute);
+											playersToRemove.add(substitute);
 											break;
 										}
 									}
@@ -204,6 +206,15 @@ public class TeamServiceImpl implements TeamService {
 					}
 				}
 			}
+			for (Player player : playersToRemove) {
+				players.remove(player);
+				substitutes.add(player);
+			}
+			for (Player player : playersToAdd) {
+				players.add(player);
+				substitutes.remove(player);
+			}
+			
 			newTeam.setPlayers(players);
 			newTeam.setSubstitutes(substitutes);
 

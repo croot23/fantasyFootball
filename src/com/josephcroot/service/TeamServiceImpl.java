@@ -101,7 +101,8 @@ public class TeamServiceImpl implements TeamService {
 				}
 			}
 
-			// T-1 Total Points (we add current live points to last weeks score for live totals)
+			// T-1 Total Points (we add current live points to last weeks score for live
+			// totals)
 			JSONArray totalPointsInfo = GetJSONFromFantasyFootballAPI.getTeamPoints(newTeam.getFantasyFootballId());
 			for (int i = 0; i < totalPointsInfo.length(); i++) {
 				if (i == totalPointsInfo.length() - 2) {
@@ -113,6 +114,8 @@ public class TeamServiceImpl implements TeamService {
 			// Players and substitutes info
 			Set<Player> players = new HashSet<>();
 			Set<Player> substitutes = new HashSet<>();
+			int defenders = 0;
+			int forwards = 0;
 			JSONArray playersJSON = GetJSONFromFantasyFootballAPI.getTeamPlayers(newTeam.getFantasyFootballId());
 			for (int i = 0; i < playersJSON.length(); i++) {
 				// Create Player
@@ -126,10 +129,80 @@ public class TeamServiceImpl implements TeamService {
 				}
 				if (currentPlayer.getInt("position") < 12) {
 					players.add(player);
+					if (player.getPosition() == 2)
+						defenders++;
+					else if (player.getPosition() == 4)
+						forwards++;
 				} else {
 					substitutes.add(player);
 				}
+			}
 
+			// Automatic substitutes
+			for (Player player : players) {
+				if (player.didNotPlay() == true) {
+
+					// Goalkeepers
+					if (player.getPosition() == 1) {
+						for (Player substitute : substitutes) {
+							if (substitute.getPosition() == 1 && substitute.didNotPlay() == false) {
+								players.add(substitute);
+								substitutes.remove(substitute);
+							}
+						}
+					}
+
+					// Defenders
+					if (player.getPosition() == 2) {
+						for (Player substitute : substitutes) {
+							if (substitute.didNotPlay() == false) {
+								if (defenders > 3) {
+									players.add(substitute);
+									substitutes.remove(substitute);
+									defenders = (substitute.getPosition() == 2) ? defenders + 1 : defenders - 1;
+									break;
+								} else {
+									if (substitute.getPosition() == 2 && substitute.didNotPlay() == false) {
+										players.add(substitute);
+										substitutes.remove(substitute);
+										break;
+									}
+								}
+							}
+						}
+					}
+
+					// Midfielders
+					if (player.getPosition() == 3) {
+						for (Player substitute : substitutes) {
+							if (substitute.didNotPlay() == false) {
+								players.add(substitute);
+								substitutes.remove(substitute);
+								break;
+							}
+						}
+
+						// Forwards
+						if (player.getPosition() == 4) {
+							for (Player substitute : substitutes) {
+								if (substitute.didNotPlay() == false) {
+									if (forwards > 1) {
+										players.add(substitute);
+										substitutes.remove(substitute);
+										forwards = (substitute.getPosition() == 4) ? forwards + 1 : forwards - 1;
+										break;
+									} else {
+										if (substitute.getPosition() == 4 && substitute.didNotPlay() == false) {
+											players.add(substitute);
+											substitutes.remove(substitute);
+											break;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 			newTeam.setPlayers(players);
 			newTeam.setSubstitutes(substitutes);
@@ -146,6 +219,10 @@ public class TeamServiceImpl implements TeamService {
 				}
 			}
 			newTeam.setWeeklyTransfers(transfers);
+
+			// Transfer hits
+			JSONObject teamHits = GetJSONFromFantasyFootballAPI.getTeamHits(newTeam.getFantasyFootballId());
+			newTeam.setTransferHits(teamHits.getInt("event_transfers_cost"));
 
 		} catch (JSONException e) {
 			log.error(e);

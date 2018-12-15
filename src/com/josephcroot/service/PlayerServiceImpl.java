@@ -81,7 +81,7 @@ public class PlayerServiceImpl implements PlayerService {
 		player.setTeam(playerInfo.getInt("team_code"));
 		player.setDidNotPlay(didNotPlay(player.getFantasyFootballId()));
 	}
-	
+
 	public static boolean didNotPlay(int id) throws JSONException, IOException {
 		JSONArray playerGameweekInfo = GetJSONFromFantasyFootballAPI.getPlayerGameweekInfo(id);
 		for (int i = 0; i < playerGameweekInfo.length(); i++) {

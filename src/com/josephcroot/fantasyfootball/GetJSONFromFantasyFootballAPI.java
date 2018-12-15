@@ -78,7 +78,7 @@ public class GetJSONFromFantasyFootballAPI {
 		}
 	}
 
-	/* Generic method to get a JSONArray from a JSONObject retrieved from fantasy API */
+	 /* Generic method to get a JSONArray from a JSONObject retrieved from fantasy API */
 	public static JSONArray getJSONArrayFromJSONObject(String url, String object, String array)
 			throws IOException, JSONException {
 		JSONObject jsonO = getJSONObject(url, object);
@@ -107,6 +107,10 @@ public class GetJSONFromFantasyFootballAPI {
 
 	public static JSONObject getTeamInfo(int team) throws JSONException, IOException {
 		return getJSONObject("entry/" + Integer.toString(team), "entry");
+	}
+	
+	public static JSONObject getTeamHits(int team) throws JSONException, IOException {
+		return getJSONObject("entry/" + Integer.toString(team) + "/event/" + getGameweek() + "/picks", "entry_history");
 	}
 
 	public static JSONArray getTeams(int league) throws JSONException, IOException {
@@ -138,13 +142,13 @@ public class GetJSONFromFantasyFootballAPI {
 		}
 		return null;
 	}
-	
+
 	public static JSONArray getPlayerGameweekInfo(int id) throws JSONException, IOException {
-		return getJSONArrayFromJSONObject("element-summary/"+id, null, "explain");
+		return getJSONArrayFromJSONObject("element-summary/" + id, null, "explain");
 	}
-	
+
 	public static JSONArray getTeamPoints(int team) throws JSONException, IOException {
 		return getJSONArrayFromJSONObject("entry/" + Integer.toString(team) + "/history", null, "history");
 	}
-	
+
 }

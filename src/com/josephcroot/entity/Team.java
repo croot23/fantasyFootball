@@ -62,6 +62,9 @@ public class Team {
 	
 	@Column(name = "overall_rank")
 	private int overallRank;
+	
+	@Column(name = "transfer_hits")
+	private int transferHits;
 
 	@ManyToOne
 	@JoinColumn(name = "captain_id")
@@ -113,7 +116,7 @@ public class Team {
 			if (player == getCaptain())
 				firstElevenGameweekPoints += player.getGameweekPoints();
 		}
-		return firstElevenGameweekPoints;
+		return firstElevenGameweekPoints - transferHits;
 	}
 	
 	public int getGameweekPoints() {
@@ -128,7 +131,6 @@ public class Team {
 		return gameweekPoints;
 	}
 	
-
 	public int getTotalPoints() {
 		int firstElevenPoints = getFirstElevenGameweekPoints();
 			return totalPoints + firstElevenPoints;
@@ -274,7 +276,6 @@ public class Team {
 		this.overallRank = overallRank;
 	}
 	
-	
 	public Map<Player, Player> getWeeklyTransfers() {
 		return weeklyTransfers;
 	}
@@ -283,4 +284,13 @@ public class Team {
 		this.weeklyTransfers = weeklySubstitutes;
 	}
 
+	public int getTransferHits() {
+		return transferHits;
+	}
+
+	public void setTransferHits(int transferHits) {
+		this.transferHits = transferHits;
+	}
+
+	
 }

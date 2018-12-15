@@ -43,6 +43,7 @@ CREATE TABLE `team` (
   `bank` int DEFAULT NULL,
   `total_transfers` int DEFAULT NULL,
   `overall_rank` int DEFAULT NULL,
+  `transfer_hits` int DEFAULT NULL,
   KEY `player_id` (`captain_id`),
   PRIMARY KEY (`fantasy_football_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;

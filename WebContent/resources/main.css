@@ -15,6 +15,14 @@ body
     margin: 0px;
     padding: 0px;
 }
+
+<!-- Remove menu on mobile site -->
+@media only screen and (max-width: 800px) {
+  .navbar {
+    display: none;
+  }
+}
+
 .dataTables_info {
 	display: none;
 }
